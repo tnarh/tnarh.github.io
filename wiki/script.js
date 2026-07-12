@@ -24,6 +24,60 @@ function cmd(what) {
         console.log(IDS);
     }
 
+    else if (what === "moveup") {
+        if (!selectedElement) {
+            alert("No item selected.");
+            return;
+        }
+
+        const idx = IDS.indexOf(selectedElement.id);
+
+        if (idx <= 0) {
+            // Already first, or not found
+            return;
+        }
+
+        // Swap order in the IDS array
+        [IDS[idx - 1], IDS[idx]] = [IDS[idx], IDS[idx - 1]];
+
+        // Move the element before its previous sibling in the DOM
+        const prev = selectedElement.previousElementSibling;
+        if (prev) {
+            ARTICLE.insertBefore(selectedElement, prev);
+        }
+
+        selectedElement.focus();
+
+        console.log(IDS);
+    }
+
+    else if (what === "movedown") {
+        if (!selectedElement) {
+            alert("No item selected.");
+            return;
+        }
+
+        const idx = IDS.indexOf(selectedElement.id);
+
+        if (idx === -1 || idx >= IDS.length - 1) {
+            // Already last, or not found
+            return;
+        }
+
+        // Swap order in the IDS array
+        [IDS[idx + 1], IDS[idx]] = [IDS[idx], IDS[idx + 1]];
+
+        // Move the element after its next sibling in the DOM
+        const next = selectedElement.nextElementSibling;
+        if (next) {
+            ARTICLE.insertBefore(next, selectedElement);
+        }
+
+        selectedElement.focus();
+
+        console.log(IDS);
+    }
+
     else if (what === "export") {
         let exported = "";
 
@@ -55,7 +109,7 @@ function cmd(what) {
             else if (TYPE == "img") {
                 exported += `Template___Image\n`;
                 exported += content.value;
-                exported += `\nAlt text not available.\nDonetemplate`;
+                exported += `|Alt text not available.\nDonetemplate`;
             }
 
             else if (TYPE == "quote") {
