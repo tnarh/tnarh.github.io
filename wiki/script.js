@@ -55,7 +55,7 @@ function cmd(what) {
             else if (TYPE == "img") {
                 exported += `Template___Image\n`;
                 exported += content.value;
-                exported += `|Alt text not available.\nDonetemplate`;
+                exported += `\nAlt text not available.\nDonetemplate`;
             }
 
             else if (TYPE == "quote") {
